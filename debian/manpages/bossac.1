@@ -1,0 +1,82 @@
+.TH BOSSAC "1" "February 2014" "bossac 1.3a" "BOSSA"
+
+.SH NAME
+\fBbossac\fR \- Command line programmer for Atmel SAM ARM microcontrollers
+
+.SH SYNOPSIS
+.B bossac
+[\fIOPTIONS\fR]
+[\fIFILE\fR]
+
+.SH DESCRIPTION
+BOSSA \- the Basic Open Source SAM-BA Application \- is a flash programmer for Atmel SAM microcontrollers. This is the command line interface for writing binary images to the target microcontroller's FLASH or ROM over a USB or serial connection. Secondarily \fBbossac\fR may be used to dump binary data already on the target microcontroller or display diagnostic information about the device.
+
+.SH OPTIONS
+.IP \fB\-e\fR,\ \fB\-\-erase\fR
+Erase the target's entire flash memory before performing any read or write operations.
+
+.IP \fB\-w\fR,\ \fB\-\-write\fR
+Write \fIFILE\fR to the target's flash memory. This operation can be expedited immensely if used in conjunction with the \fB\-\-erase\fR option.
+
+.IP \fB\-r\fR,\ \fB\-\-read\fR[=\fISIZE\fR]
+Read \fISIZE\fR bytes from the target's flash memory and store the contents in \fIFILE\fR. If \fISIZE\fR is not specified the entire contents on the target's flash memory will subsequently be read and written to disk.
+
+.IP \fB\-v\fR,\ \fB\-\-verify\fR
+Verify that \fIFILE\fR matches the contents of flash on the target, or vice\-versa if you prefer.
+
+.IP \fB\-p\fR,\ \fB\-\-port\fR[=\fIPORT\fR]
+Use the serial port \fIPORT\fR to communicate with the device. By default this program will automatically scan all serial ports looking for a supported device.
+
+.IP \fB\-b\fR,\ \fB\-\-boot\fR[=\fIBOOL\fR]
+Boot from ROM if \fIBOOL\fR is 0. Boot from FLASH if \fIBOOL\fR is 1. (The latter is default.) This option is completely disregarded on unsupported devices.
+
+.IP \fB\-c\fR,\ \fB\-\-bod\fR[=\fIBOOL\fR]
+Disable brownout detection if \fIBOOL\fR is 0. Enable brownout detection if \fIBOOL\fR is 1. (The latter is default.)
+
+.IP \fB\-t\fR,\ \fB\-\-bor\fR[=\fIBOOL\fR]
+Disable brownout reset if \fIBOOL\fR is 0. Enable brownout reset if \fIBOOL\fR is 1. (The latter is default.)
+
+.IP \fB\-l\fR,\ \fB\-\-lock\fR[=\fIREGION\fR]
+Lock the flash region \fIREGION\fR. Multiple regions may be specified as a comma\-separated list. All regions will be locked if no \fIREGION\fR is given (default).
+
+.IP \fB\-u\fR,\ \fB\-\-unlock\fR[=\fIREGION\fR]
+Unlock the flash region \fIREGION\fR. Multiple regions may be specified as a comma\-separated list. All regions will be unlocked if no \fIREGION\fR is given (default).
+
+.IP \fB\-s\fR,\ \fB\-\-security\fR
+Set the flash security flag.
+
+.IP \fB\-U\fR,\ \fB\-\-force_usb_port\fR[=\fIBOOL\fR]
+Enable automatic detection of the target's USB port if \fIBOOL\fR is false. Disable USB port autodetection if \fIBOOL\fR is true. (The former is default.)
+
+.IP \fB\-R\fR,\ \fB\-\-reset\fR
+Reset the CPU after writing \fIFILE\fR to the target. This option is completely disregarded on unsupported devices.
+
+.IP \fB\-i\fR,\ \fB\-\-info\fR
+Display diagnostic information identifying the target device.
+
+.IP \fB\-d\fR,\ \fB\-\-debug\fR
+Print verbose diagnostic messages for debug purposes.
+
+.IP \fB\-h\fR,\ \fB\-\-help\fR
+Display short command line help information.
+
+.SH EXAMPLES
+\fBbossac\fR \-e \-w \-v \-b image.bin                              # Erase FLASH, write \fIimage.bin\fR to FLASH, verify the write, and set boot from FLASH
+.br
+\fBbossac\fR \-\-port=ttyACM0 \-U false \-e \-w \-v \-b \-R image.bin   # Do the same thing as the previous example, except forceably write to the device connected to \fIttyACM0\fR and reset the CPU after verifying the write
+.br
+\fBbossac\fR \-r0x10000 image.bin                                # Read 64KB from FLASH on the target device, then write it out to \fIimage.bin\fR on your hard disk
+
+.SH AUTHOR
+This manual page was written by Karl Lenz <xorangekiller@gmail.com> for the Debian project (but may be used by others).
+
+.SH COPYRIGHT
+Copyright (c) 2011-2013 ShumaTech <http://www.shumatech.com>
+
+Copying and distribution of this file, with or without modification, are permitted in any medium without royalty provided the copyright notice and this notice are preserved.
+
+Bossac is provided "as is" with no warranty. This program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. On Debian systems, the complete text of the GNU General Public License version 3 can be found in "/usr/share/common-licenses/GPL-3".
+
+.SH "SEE ALSO"
+.BR bossa (1),
+.BR bossash (1)

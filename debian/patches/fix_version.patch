@@ -1,0 +1,15 @@
+Author: Andreas Tille <tille@debian.org>
+Last-Update: Fri, 04 Oct 2019 21:27:02 +0200
+Description: Do not rely on git to obtain version number
+
+--- a/Makefile
++++ b/Makefile
+@@ -3,7 +3,7 @@
+ #
+ # Version
+ #
+-VERSION?=$(shell git describe --tags --dirty)
++VERSION?=$(shell dpkg-parsechangelog | grep '^Version' | cut -d' ' -f2 | cut -f1 -d-)
+ WXVERSION=3.0
+ 
+ #
