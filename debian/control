@@ -4,7 +4,7 @@ XSBC-Original-Maintainer: Debian Science Maintainers <debian-science-maintainers
 Uploaders: Scott Howard <showard@debian.org>
 Section: electronics
 Priority: optional
-Build-Depends: debhelper-compat (= 12),
+Build-Depends: debhelper (>= 9),
                libwxgtk3.0-gtk3-dev,
                libreadline6-dev,
                libx11-dev,
